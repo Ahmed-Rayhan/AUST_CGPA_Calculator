@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGPA Calculator</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background-color: #f4f4f4; 
+            margin: 0; 
+            padding: 20px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh;
+        }
+        .container { 
+            background-color: #fff; 
+            padding: 30px; 
+            border-radius: 10px; 
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); 
+            width: 100%; 
+            max-width: 320px;
+        }
+        h1 { 
+            text-align: center; 
+            color: #333; 
+            margin-bottom: 5px; 
+            font-size: 24px;
+        }
+        h2{
+            text-align: center; 
+            color: #333; 
+            margin-bottom: 20px; 
+            font-size: 12px;
+        }
+        .input-group { 
+            margin-bottom: 15px; 
+            display: flex; 
+            align-items: center;
+        }
+        label { 
+            display: block; 
+            font-weight: bold; 
+            color: #555; 
+        }
+        input[type="number"] { 
+            padding: 10px; 
+            border-radius: 5px; 
+            border: 1px solid #ccc; 
+            font-size: 16px; 
+            box-sizing: border-box;
+        }
+        .marks-box {
+            
+            margin-right: 10px;
+        }
+        .credits-box {
+            width: 30%;
+        }
+        button { 
+            padding: 10px 15px; 
+            background-color: #168141; 
+            color: white; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            font-size: 16px;
+            width: 100%; 
+            margin-bottom: 10px;
+        }
+        button:hover { 
+            background-color: #1e984f; 
+        }
+        #result { 
+            text-align: center; 
+            font-size: 20px; 
+            color: #333; 
+            margin-top: 20px; 
+            font-weight: bold; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AUST CGPA Calculator</h1>
+        <h2>Ahmed Rayhan, EEE</h2>
+        <form id="cgpaForm">
+            <div id="coursesContainer">
+                <div class="input-group">
+                    <div class="marks-box">
+                        <label for="marks1">Marks for Course 1:</label>
+                        <input type="number" id="marks1" name="marks1" required>
+                    </div>
+                    <div class="credits-box">
+                        <label for="credits1">Credits:</label>
+                        <input type="number" step="0.1" id="credits1" name="credits1" min="0.5" max="3" required>
+                    </div>
+                </div>
+            </div>
+            <button type="button" onclick="addCourse()">Add Another Course</button>
+            <button type="submit">Calculate CGPA</button>
+        </form>
+        <h2 id="result"></h2>
+    </div>
+
+    <script>
+        let courseCount = 1;
+
+        function addCourse() {
+            courseCount++;
+            const container = document.getElementById('coursesContainer');
+            const div = document.createElement('div');
+            div.classList.add('input-group');
+            div.innerHTML = `
+                <div class="marks-box">
+                    <label for="marks${courseCount}">Marks for Course ${courseCount}:</label>
+                    <input type="number" id="marks${courseCount}" name="marks${courseCount}" required>
+                </div>
+                <div class="credits-box">
+                    <label for="credits${courseCount}">Credits:</label>
+                    <input type="number" step="0.1" id="credits${courseCount}" name="credits${courseCount}" min="0.5" max="3" required>
+                </div>
+            `;
+            container.appendChild(div);
+        }
+
+        function getGrade(marks) {
+            if (marks >= 80) return 4.0;
+            else if (marks >= 75) return 3.75;
+            else if (marks >= 70) return 3.5;
+            else if (marks >= 65) return 3.25;
+            else if (marks >= 60) return 3.0;
+            else if (marks >= 55) return 2.75;
+            else if (marks >= 50) return 2.5;
+            else if (marks >= 45) return 2.25;
+            else if (marks >= 40) return 2.0;
+            else return 0.0;
+        }
+
+        function calculateCGPA(marks, credits) {
+            let totalGradePoints = 0.0;
+            let totalCredits = 0.0;
+            for (let i = 0; i < marks.length; i++) {
+                totalGradePoints += getGrade(marks[i]) * credits[i];
+                totalCredits += credits[i];
+            }
+            return totalCredits ? totalGradePoints / totalCredits : 0.0;
+        }
+
+        document.getElementById('cgpaForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const marks = [];
+            const credits = [];
+            for (let i = 1; i <= courseCount; i++) {
+                const marksInput = document.getElementById(`marks${i}`).value;
+                const creditsInput = document.getElementById(`credits${i}`).value;
+                marks.push(parseInt(marksInput));
+                credits.push(parseFloat(creditsInput));
+            }
+
+            const cgpa = calculateCGPA(marks, credits);
+            document.getElementById('result').innerText = `Your CGPA is: ${cgpa.toFixed(2)}`;
+        });
+    </script>
+</body>
+</html>
