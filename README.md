@@ -29,8 +29,6 @@ The following grading system is used to calculate grade points:
 ## Project Structure
 
 - **`index.html`**: The main HTML file containing the structure and content of the web application.
-- **`style.css`**: Contains custom CSS styles for the web application (if separated).
-- **`script.js`**: JavaScript file handling the logic for adding courses and calculating CGPA (if separated).
 - **`README.md`**: This file, explaining the project and its structure.
 
 ## How It Works
