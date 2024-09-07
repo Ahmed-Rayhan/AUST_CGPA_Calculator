@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CGPA Calculator</title>
@@ -28,12 +27,12 @@
         h1 { 
             text-align: center; 
             color: #333; 
-            margin-bottom: 5px; 
+            margin-bottom: 20px; 
             font-size: 24px;
         }
         h2{
             text-align: center; 
-            color: #333; 
+            color: #ffffff; 
             margin-bottom: 20px; 
             font-size: 12px;
         }
@@ -82,12 +81,29 @@
             margin-top: 20px; 
             font-weight: bold; 
         }
+        l-helix{
+            align-items: center;
+            justify-content: center;
+        }
+        l-helix {
+            display: block;
+            margin: 0 auto 20px; /* Center it and give space below */
+        }
     </style>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/ldrs/dist/auto/helix.js"></script>
+
 </head>
 <body>
     <div class="container">
+    
+    <l-helix
+    size="60"
+    speed="3.910"
+    color="black">
+      
+    </l-helix>
         <h1>AUST CGPA Calculator</h1>
-        <h2>Ahmed Rayhan, EEE</h2>
+   
         <form id="cgpaForm">
             <div id="coursesContainer">
                 <div class="input-group">
@@ -106,6 +122,10 @@
         </form>
         <h2 id="result"></h2>
     </div>
+
+<div>
+    
+</div>
 
     <script>
         let courseCount = 1;
@@ -167,5 +187,10 @@
             document.getElementById('result').innerText = `Your CGPA is: ${cgpa.toFixed(2)}`;
         });
     </script>
+
+<footer style="text-align: center; padding: 2px; background-color: #333; color: white; position: fixed; bottom: 0; width: 100%; left: 0;">
+    <h2>&copy; 2024 Ahmed Rayhan </h2>
+</footer>
+
 </body>
 </html>
